@@ -8,9 +8,9 @@ import gpxpy
 from lxml import etree
 from gpxpy.gpx import GPX
 
-from tokens import tokenize, get_wtokens, Seasons
+from gpxindex.tokens import tokenize, get_wtokens, Seasons
 from gpxindex.clib import clib_get_ptokens, clib_get_rtokens
-from metric import get_score
+from gpxindex.metric import get_score
 
 
 # from normalize import is_match_xml_schema
@@ -127,10 +127,10 @@ class GPXIndex:
             os.makedirs(self.__points_dir)
             os.makedirs(self.__regions_dir)
 
-        self.__gpx10_xmlschema_doc = etree.parse('gpx10.xsd')
-        self.__gpx10_xmlschema = etree.XMLSchema(self.__gpx10_xmlschema_doc)
-        self.__gpx11_xmlschema_doc = etree.parse('gpx11.xsd')
-        self.__gpx11_xmlschema = etree.XMLSchema(self.__gpx11_xmlschema_doc)
+#        self.__gpx10_xmlschema_doc = etree.parse('gpx10.xsd')
+#        self.__gpx10_xmlschema = etree.XMLSchema(self.__gpx10_xmlschema_doc)
+#        self.__gpx11_xmlschema_doc = etree.parse('gpx11.xsd')
+#        self.__gpx11_xmlschema = etree.XMLSchema(self.__gpx11_xmlschema_doc)
 
     def __add_to_wtrie(self, fid: str, tokens: list) -> None:
         for token in tokens:

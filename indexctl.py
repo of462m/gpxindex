@@ -1,5 +1,5 @@
 import argparse
-from index import GPXIndex, load_gpx
+from gpxindex.index import GPXIndex, load_gpx
 import os
 
 gpx_type = {"trk", "pt", "reg"}
