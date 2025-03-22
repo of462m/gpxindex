@@ -1,4 +1,6 @@
 import argparse
+import sys
+sys.path.append(".")
 from gpxindex.index import GPXIndex, load_gpx
 import os
 
