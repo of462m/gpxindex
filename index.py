@@ -289,7 +289,8 @@ class GPXIndex:
         res_fids = sorted(res_fids, key=lambda d: d['score'], reverse=True)
         res = {"search-str": tokens_str, "search-tokens": search_tokens, "results-number": len(res_fids),
                "search-results": res_fids}
-        print(json.dumps(res, ensure_ascii=False))
+#        print(json.dumps(res, ensure_ascii=False))
+        return res
 
     def geosearch_point(self, lat: float, lon: float):
         pass
