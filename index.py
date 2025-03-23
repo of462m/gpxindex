@@ -1,5 +1,8 @@
 import hashlib
 import os
+import sys
+sys.path.append(".")
+
 import json
 import io
 
@@ -73,15 +76,10 @@ class RegBounds:
 
 
 def get_trk_season(gpx: GPX):
-    # ms = ('', 'зима', 'зима', 'весна',
-    #       'весна', 'весна', 'лето',
-    #       'лето', 'лето', 'осень',
-    #       'осень', 'осень', 'зима',
-    #       )
-    ms = ('', Seasons.WINTER, Seasons.WINTER, Seasons.SPRING,
-          Seasons.SPRING, Seasons.SPRING, Seasons.SUMMER,
-          Seasons.SUMMER, Seasons.SUMMER, Seasons.AUTUMN,
-          Seasons.AUTUMN, Seasons.AUTUMN, Seasons.WINTER,
+    ms = ('', 'зима', 'зима', 'весна',
+          'весна', 'весна', 'лето',
+          'лето', 'лето', 'осень',
+          'осень', 'осень', 'зима',
           )
     if gpx.waypoints:
         if gpx.waypoints[0].time:
@@ -268,8 +266,8 @@ class GPXIndex:
                         fdat.write(line)
             print("OK")
         # except LoadGpxExtention as e:
-        except:
-            print(f"ERROR")
+        except Exception as e:
+            print(f"ERROR: {str(e)}")
 
     def search(self, tokens_str: str):
         search_tokens, season = tokenize(tokens_str)
@@ -300,11 +298,10 @@ class GPXIndex:
 
 
 if __name__ == '__main__':
-    index = GPXIndex("mindex")
-#    index.search('галина')
-    for fname in os.listdir("../angara-w"):
-      gpx_fname = f"angara-w/{fname}"
-      gpx_href_fname = f"angara-l/{fname.split('.')[0]}.href"
+    index = GPXIndex("/var/db/mindex")
+    for fname in os.listdir("gpxindex/angara-w"):
+      gpx_fname = f"gpxindex/angara-w/{fname}"
+      gpx_href_fname = f"gpxindex/angara-l/{fname.split('.')[0]}.href"
       with open(gpx_href_fname, "r") as fhref:
           url = fhref.readline().strip('\n')
       print(f"Adding {gpx_fname} ...", end='')
