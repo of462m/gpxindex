@@ -286,7 +286,7 @@ class GPXIndex:
                 res_fids.append(search_fid_data)
         res_fids = sorted(res_fids, key=lambda d: d['score'], reverse=True)
         if season:
-            res_fids = list(filter(lambda p: p["gpx-season"] is season, res_fids))
+            res_fids = list(filter(lambda p: p["gpx-season"] == season, res_fids))
         res = {"search-str": tokens_str, "search-tokens": search_tokens, "results-number": len(res_fids),
                "search-results": res_fids}
 #        print(json.dumps(res, ensure_ascii=False))
