@@ -14,7 +14,7 @@ class Seasons(IntEnum):
 def tokenize(s: str) -> tuple:
     s = s.lower().replace('ё', 'е')
     res = list()
-    season = Seasons.NONE
+    season = None
     pr = (
         'на', 'по', 'из', 'от', 'за', 'до', 'перед', 'без', 'через', 'над', 'про',
         'под', 'для', 'после', 'при', 'между', 'около', 'среди', 'вокруг', 'мимо',
@@ -72,13 +72,13 @@ def tokenize(s: str) -> tuple:
 
         for token in word.split():
             if token in winter_tokens:
-                season = Seasons.WINTER
+                season = "зима"
             elif token in spring_tokens:
-                season = Seasons.SPRING
+                season = "весна"
             elif token in summer_tokens:
-                season = Seasons.SUMMER
+                season = "лето"
             elif token in autumn_tokens:
-                season = Seasons.AUTUMN
+                season = "осень"
             elif len(token) > 1 and token not in [*pr, *strava, *mon, *mday, *trash, ]:
                 res.append(token)
 
