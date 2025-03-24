@@ -93,7 +93,7 @@ def get_trk_season(gpx: GPX):
     if gpx.time:
         return ms[gpx.time.month]
     else:
-        return Seasons.NONE
+        return None
 
 
 class GPXIndex:
@@ -285,6 +285,8 @@ class GPXIndex:
             if score:
                 res_fids.append(search_fid_data)
         res_fids = sorted(res_fids, key=lambda d: d['score'], reverse=True)
+        if season:
+            res_fids = list(filter(lambda p: p["gpx-season"] is season, res_fids))
         res = {"search-str": tokens_str, "search-tokens": search_tokens, "results-number": len(res_fids),
                "search-results": res_fids}
 #        print(json.dumps(res, ensure_ascii=False))
@@ -299,6 +301,8 @@ class GPXIndex:
 
 if __name__ == '__main__':
     index = GPXIndex("/var/db/mindex")
+    print(index.search("мунку зимой"))
+    exit(0)
     for fname in os.listdir("gpxindex/angara-w"):
       gpx_fname = f"gpxindex/angara-w/{fname}"
       gpx_href_fname = f"gpxindex/angara-l/{fname.split('.')[0]}.href"
