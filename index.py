@@ -12,7 +12,7 @@ from lxml import etree
 from gpxpy.gpx import GPX
 
 from gpxindex.tokens import tokenize, get_wtokens, Seasons
-from gpxindex.clib import clib_get_ptokens, clib_get_rtokens
+from gpxindex.clib import clib_get_ptokens, clib_get_rtokens, get_tracks_by_point
 from gpxindex.metric import get_score
 
 
@@ -292,11 +292,22 @@ class GPXIndex:
 #        print(json.dumps(res, ensure_ascii=False))
         return res
 
+
+    def search_by_coords(self, lat: float, lon: float, pt_nbhood_r: float = 150.0):
+        res_fids = list()
+        search_fids = get_tracks_by_point(self.__gpx_tracks_dir, lat, lon, pt_nbhood_r)
+        res_fids = [self.__get_from_json(search_fid) for search_fid in search_fids]
+        res = {"search-str": f"{lat} {lon} {pt_nbhood_r}", "results-number": len(res_fids),
+               "search-results": res_fids}
+        return res
+
+
     def geosearch_point(self, lat: float, lon: float):
         pass
 
     def geosearch_region(self):
         pass
+
 
 
 if __name__ == '__main__':
