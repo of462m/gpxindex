@@ -151,10 +151,10 @@ class GPXIndex:
             return json.load(ff)
 
     def get_ptokens(self, fid: str) -> list:
-        return clib_get_ptokens(f"{self.__gpx_tracks_dir}{fid}", self.__points_dir)
+        return list(set(clib_get_ptokens(f"{self.__gpx_tracks_dir}{fid}", self.__points_dir)))
 
     def get_rtokens(self, fid: str) -> list:
-        return clib_get_rtokens(f"{self.__gpx_tracks_dir}{fid}", self.__regions_dir)
+        return list(set(clib_get_rtokens(f"{self.__gpx_tracks_dir}{fid}", self.__regions_dir)))
 
     def add_gpx_to_data(self, gpx: GPX, fid: str) -> None:
         bounds = RegBounds()
@@ -311,14 +311,14 @@ class GPXIndex:
 
 
 if __name__ == '__main__':
-    index = GPXIndex("/var/db/mindex")
-    print(index.search("мунку зимой"))
-    exit(0)
+    index = GPXIndex("/var/db/lindex")
     for fname in os.listdir("gpxindex/angara-w"):
       gpx_fname = f"gpxindex/angara-w/{fname}"
       gpx_href_fname = f"gpxindex/angara-l/{fname.split('.')[0]}.href"
       with open(gpx_href_fname, "r") as fhref:
           url = fhref.readline().strip('\n')
-      print(f"Adding {gpx_fname} ...", end='')
+      print(f"Adding {gpx_fname} ...", end='', flush=True)
       index.add_track(gpx_fname, url)
-      print("OK")
+#      if fname == "00247.gpx":
+#        index.add_track(gpx_fname, url)
+      print("OK", flush=True)
