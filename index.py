@@ -86,28 +86,18 @@ def get_trk_season(gpx: GPX):
         if gpx.waypoints[0].time:
             if gpx.waypoints[0].time.year != 1970:
                 season.add(ms[gpx.waypoints[0].time.month])
-            else:
-                print(f"wpt-1970", end=" ")
     if gpx.tracks:
         if gpx.has_times():
             if gpx.tracks[0].segments[0].points[0].time.year != 1970:
                 season.add(ms[gpx.tracks[0].segments[0].points[0].time.month])
-            else:
-                print(f"trk-1970", end=" ")
     if gpx.routes:
         if gpx.has_times():
             if gpx.routes[0].points[0].time.year != 1970:
                 season.add(ms[gpx.routes[0].points[0].time.month])
-            else:
-                print(f"rte-1970", end=" ")
     if gpx.time and len(season) == 0:
         if gpx.time.year != 1970:
-            print("gpx.time.season in use", end=" ")
             season.add(ms[gpx.time.month])
-        else:
-            print(f"gpx-time-1970", end=" ")
 
-    print(f"<{season}>", end=" ") if len(season) > 0 else print("<NONE>", end=" ")
     return list(season)[0] if len(season) == 1 else None
 
 
